@@ -18,7 +18,9 @@ SRC =	main.c \
 		core.c \
 		errors.c \
 		lexer.c \
-		other.c
+		other.c \
+		str_split_whitespaces.c \
+		parsing.c
 
 OBJ = $(SRC:.c=.o)
 

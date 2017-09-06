@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   check_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/04 05:21:30 by mameyer           #+#    #+#             */
-/*   Updated: 2017/09/04 05:21:32 by mameyer          ###   ########.fr       */
+/*   Created: 2017/09/05 23:29:28 by mameyer           #+#    #+#             */
+/*   Updated: 2017/09/05 23:29:34 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_sh2.h"
 
-void		print_list(t_control *control)
+void		launch_commands(t_control *tokens, t_control *env)
 {
 	t_lst		*tmp;
 
-	tmp = control->begin;
+	tmp = tokens->begin;
 	while (tmp != NULL)
 	{
-		ft_putnbr(tmp->type);
-		ft_putstr(" : ");
-		ft_putendl(tmp->name);
+		check_commands(tmp, env);
 		tmp = tmp->next;
 	}
+	if (tmp == NULL)
+	{
+		tokens = dll_clear_list(tokens);
+		core(env);
+	}
+}
+
+void		check_commands(t_lst *token, t_control *env)
+{
+	
 }

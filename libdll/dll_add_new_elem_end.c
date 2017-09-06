@@ -16,11 +16,10 @@ t_control		*dll_add_new_elem_end(t_control *control, char *value)
 {
 	t_lst		*elem;
 
-	if (!(elem = malloc(sizeof(t_list))))
+	if (!(elem = malloc(sizeof(t_lst))))
 		return (NULL);
 	elem->name = ft_strdup(value);
-	elem->is_highlight = 0;
-	elem->cursor = 0;
+	elem->type = 0;
 	elem->next = NULL;
 	elem->prev = NULL;
 	if (dll_is_empty(control))

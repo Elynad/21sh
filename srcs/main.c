@@ -27,6 +27,9 @@ int		main(int argc, char **argv, char **environment)
 		exit(EXIT_FAILURE);
 //	init(glob);
 	env = get_env(env, environment);
-	core(env, glob);
+//	print_list(env);
+	core(env);
 	return (0);
 }
+
+//// TEST

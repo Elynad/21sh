@@ -19,8 +19,7 @@ t_control		*dll_add_new_elem_frnt(t_control *control, char *value)
 	if (!(elem = malloc(sizeof(t_lst))))
 		return (NULL);
 	elem->name = ft_strdup(value);
-	elem->cursor = 0;
-	elem->is_highlight = 0;
+	elem->type = 0;
 	elem->next = NULL;
 	elem->prev = NULL;
 	if (dll_is_empty(control))

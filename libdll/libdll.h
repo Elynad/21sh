@@ -16,6 +16,12 @@
 
 # include "../libft/libft.h"
 
+# define COMMAND 1
+# define FLAG 2
+# define ARGUMENT 3
+# define REDIRECTION 4
+# define END 5
+
 typedef struct			s_control
 {
 	int					length;
@@ -26,8 +32,8 @@ typedef struct			s_control
 typedef struct			s_lst
 {
 	char				*name;
-	int					cursor;
-	int					is_highlight;
+	char				**value;
+	int					type;
 	struct s_lst		*next;
 	struct s_lst		*prev;
 }						t_lst;

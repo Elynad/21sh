@@ -40,15 +40,16 @@ void			init(t_global *glob);
 */
 
 int 			check_str(char *str);
-t_control		*lexer(char *str);
+t_control		*lexer(char *str, t_control *tokens);
 t_control		*get_until_next_sq(char *str, int *a, t_control *tokens);
 t_control		*get_until_next_dq(char *str, int *a, t_control *tokens);
+t_control		*get_until_next_word(char *str, int *a, t_control *tokens);
 
 /*
 **		CORE
 */
 
-void			core(t_control *env, t_global *glob);
+void			core(t_control *env);
 
 /*
 **		PRINT
@@ -65,5 +66,5 @@ void			empty_env(void);
 #endif
 
 /*
-**		mkdir "test ; 1" ; ls -l | cat -e
+**		TEST STRING = mkdir "test    ; -l test w" ; ls -l -w -R | cat -e 
 */
