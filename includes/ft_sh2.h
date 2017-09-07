@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/04 05:31:22 by mameyer           #+#    #+#             */
-/*   Updated: 2017/09/04 05:34:41 by mameyer          ###   ########.fr       */
+/*   Created: 2017/09/07 12:56:21 by mameyer           #+#    #+#             */
+/*   Updated: 2017/09/07 12:56:25 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,55 +16,52 @@
 
 # include "../libft/libft.h"
 # include "../libdll/libdll.h"
-# include <sys/termios.h>
-# include <sys/ioctl.h>
+# include "../libbt/libbt.h"
+# include <termios.h>
 # include <term.h>
-# include <stdio.h>				// TESTS
+# include <curses.h>
 
-typedef struct			s_global
+# define PROMPT "mameyer's 21sh $> "
+# define SC 1
+# define DL 2
+# define RC 3
+# define LE 4
+
+typedef struct 		s_glob
 {
-	struct termios		term;
-	struct termios		default_term;
-	char				*term_name;
-}						t_global;
+	struct termios	term;
+	struct termios	default_term;
+	char			*term_name;
+	char			**test;
+}					t_glob;
+
+t_glob				*glob;
 
 /*
 **		INIT
 */
 
-t_control		*get_env(t_control *env, char **environment);
-void			init(t_global *glob);
-
-/*
-**		LEXING AND PARSING
-*/
-
-int 			check_str(char *str);
-t_control		*lexer(char *str, t_control *tokens);
-t_control		*get_until_next_sq(char *str, int *a, t_control *tokens);
-t_control		*get_until_next_dq(char *str, int *a, t_control *tokens);
-t_control		*get_until_next_word(char *str, int *a, t_control *tokens);
+char		**duplicate_environment(char **env);
+void		init(void);
 
 /*
 **		CORE
 */
 
-void			core(t_control *env);
+void		core(char **env);
+
+char		*shift_right(char *command, int pos, char c);
 
 /*
-**		PRINT
+**		TERMCAPS
 */
 
-void			print_list(t_control *control);
+void		apply_termcap(int macro);
 
 /*
-**		ERRORS
+**		FREE
 */
 
-void			empty_env(void);
+void		free_d_char(char **d_char);
 
 #endif
-
-/*
-**		TEST STRING = mkdir "test    ; -l test w" ; ls -l -w -R | cat -e 
-*/
