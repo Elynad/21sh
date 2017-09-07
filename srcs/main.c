@@ -5,31 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/04 04:52:57 by mameyer           #+#    #+#             */
-/*   Updated: 2017/09/04 04:52:58 by mameyer          ###   ########.fr       */
+/*   Created: 2017/09/07 12:55:46 by mameyer           #+#    #+#             */
+/*   Updated: 2017/09/07 12:55:48 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_sh2.h"
 
-int		main(int argc, char **argv, char **environment)
+int		main(int argc, char **argv, char **env)
 {
-	t_control		*env;
-	t_global		*glob;
+	char		**dup_env;
 
 	(void)argc;
 	(void)argv;
-	if (!environment)
-		empty_env();
-	if (!(env = malloc(sizeof(t_control))))
+	dup_env = duplicate_environment(env);
+	if (!(glob = malloc(sizeof(t_glob))))
 		exit(EXIT_FAILURE);
-	if (!(glob = malloc(sizeof(t_global))))
-		exit(EXIT_FAILURE);
-//	init(glob);
-	env = get_env(env, environment);
-//	print_list(env);
-	core(env);
+	init();
+	core(dup_env);
+	free_d_char(dup_env);
+    if (tcsetattr(0, TCSANOW, &glob->default_term) == -1)
+	    exit(EXIT_FAILURE);
+	while (1);		// LEAKS CHECK
 	return (0);
 }
-
-//// TEST
