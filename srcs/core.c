@@ -57,28 +57,25 @@ void		core(char **env)
 		else
 		{
 			if (command[a] == 0 && index == 0)
+			{
 				command[a] = input[0];
+				ft_putchar(command[a]);
+			}
 			else
 			{
-				//ft_debug("COMMAND[A] NOT EMPTY - INDEX VALUE");
-				//ft_putnbr(index);
-				/*
-				** index will be equal to the number of chars after the cursor
-				*/
-				// Shift func is bullshit
 				command = shift_right_string(command, (int)ft_strlen(command) - index, input[0]);
 				apply_termcap(DL);
 				apply_termcap(RC);
 				ft_putstr(PROMPT);
 				ft_putstr(command);
 				int		test = 0;
-				while (test <= index)
+				while (test < index)
 				{
 					apply_termcap(LE);
 					test++;
 				}
 			}
-			ft_putchar(command[a]);
+		//	ft_putchar(command[a]);
 			a++;
 			cursor_pos++;
 		}
@@ -107,6 +104,7 @@ char		*shift_right_string(char *str, int index, char c)
 		b++;
 	}
 	free(tmp);
+	//ft_debug(str);
 	return (str);
 }
 
