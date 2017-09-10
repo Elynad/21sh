@@ -56,10 +56,15 @@ void		init(void);
 **		CORE
 */
 
-void		core(char **env);
+
+
+/*
+**		PARSING
+*/
+
+void		parsing(char **env, t_control *history);
 char		*shift_right_string(char *str, int index, char c);
-char		*shift_right(char *command, int pos, char c);
-char		*shift_left(char *command, int pos);
+char		*shift_left_string(char *str, int index);
 
 /*
 **		TERMCAPS

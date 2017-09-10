@@ -15,7 +15,7 @@ NAME = 21sh
 SRC =	main.c \
 		init.c \
 		free.c \
-		core.c \
+		parsing.c \
 		termcaps.c
 
 OBJ = $(SRC:.c=.o)
