@@ -16,6 +16,8 @@ SRC =	main.c \
 		init.c \
 		free.c \
 		parsing.c \
+		history.c \
+		cursor.c \
 		termcaps.c
 
 OBJ = $(SRC:.c=.o)

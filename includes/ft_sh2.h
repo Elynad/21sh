@@ -56,8 +56,15 @@ void		init(void);
 */
 
 void		parsing(char **env, t_control *history);
+char		*add_char(char *str, char c, int index, int *a);
+char		*delete_key(char *str, int *a, int cursor);
+void		move_cursor_sides(char input, int *index, int a, int len);
+char		*up_history(int *previous, t_control *history);
+char		*down_history(int *previous, t_control *history);
+void		add_history(t_control *history, char *command, char **env);
+char		*init_command(int *a, int *index, int *previous);
+
 char		*shift_right_string(char *str, int index, char c);
-char		*shift_left_string(char *str, int index);
 
 /*
 **		TERMCAPS

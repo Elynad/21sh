@@ -26,8 +26,7 @@ int		main(int argc, char **argv, char **env)
 	init();
 	parsing(dup_env, history);
 	free_d_char(dup_env);
-    if (tcsetattr(0, TCSANOW, &glob->default_term) == -1)
-	    exit(EXIT_FAILURE);
-	while (1);		// LEAKS CHECK
+	if (tcsetattr(0, TCSANOW, &glob->default_term) == -1)
+		exit(EXIT_FAILURE);
 	return (0);
 }

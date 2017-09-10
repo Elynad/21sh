@@ -18,145 +18,95 @@ void		parsing(char **env, t_control *history)
 	char		*command;
 	int			a;
 	int			previous;
-	int			test;
 	int			index;
-	int			cursor_pos;
-	t_lst		*tmp;
 
-	(void)env;
 	ft_memset(input, 0, 3);
-	apply_termcap(SC);
-	ft_putstr(PROMPT);
-	a = 0;
-	index = 0;
-	cursor_pos = 0;
-	previous = 0;
-	if (!(command = (char *)malloc(sizeof(char) * 1024)))
-		exit(EXIT_FAILURE);
-	ft_memset(command, 0, 1024);
+	command = init_command(&a, &index, &previous);
 	while (read(0, input, 3))
 	{
-		if (input[0] == 10)		// RETURN
-		{
-			if (command && ft_strlen(command) > 0)
-			{
-				history = dll_add_new_elem_end(history, command);
-				tmp = history->end;
-			}
-			ft_putstr("\nCOMMAND VALUE = ");
-			ft_debug(command);
-			parsing(env, history);
-		}
-		else if (input[0] == 27 && input[1] == 91 && input[2] == 68)	// LEFT
-		{
-			if (index < a && index < (int)ft_strlen(command))
-			{
-				apply_termcap(LE);
-				index++;
-			}
-		}
-		else if (input[0] == 27 && input[1] == 91 && input[2] == 67)	// RIGHT
-		{
-			if (index <= a && index > 0)
-			{
-				apply_termcap(ND);
-				index--;
-			}
-		}
-		else if (input[0] == 27 && input[1] == 91 && input[2] == 66)	// DOWN
-		{
-			if (previous > 2)
-				previous--;
-			tmp = history->end;
-			int 	test3 = 2;
-			while (test3 < previous && tmp != NULL && tmp->prev != NULL)
-			{
-				tmp = tmp->prev;
-				test3++;
-			}
-			if (tmp != NULL && tmp->name && ft_strlen(tmp->name) > 0)
-			{
-				apply_termcap(DL);
-				apply_termcap(RC);
-				ft_putstr(PROMPT);
-				ft_putstr(tmp->name);
-			}
-			if (tmp->prev)
-				tmp = tmp->prev;
-		}
-		else if (input[0] == 27 && input[1] == 91 && input[2] == 65)	// UP
-		{
-			if (previous <= history->length)
-				previous++;
-			tmp = history->end;
-			int		test2 = 2;
-			while (test2 < previous && tmp != NULL && tmp->prev != NULL)
-			{
-				tmp = tmp->prev;
-				test2++;
-			}
-			if (tmp != NULL && tmp->name && ft_strlen(tmp->name) > 0)
-			{
-				apply_termcap(DL);
-				apply_termcap(RC);
-				ft_putstr(PROMPT);
-				ft_putstr(tmp->name);
-			}
-			if (tmp->prev)
-				tmp = tmp->prev;
-		}
-		else if (input[0] == 127)										// DELETE
-		{
-			command = shift_left_string(command, (ft_strlen(command) - 1 - index));
-			if (a > 0)
-				a--;
-			apply_termcap(DL);
-			apply_termcap(RC);
-			ft_putstr(PROMPT);
-			ft_putstr(command);
-			test = 0;
-			while (test < index)
-			{
-				apply_termcap(LE);
-				test++;
-			}
-		}
+		if (input[0] == 10)
+			add_history(history, command, env);
+		else if (input[0] == 27 && input[1] == 91
+			&& (input[2] == 68 || input[2] == 67))
+			move_cursor_sides(input[2], &index, a, (int)ft_strlen(command));
+		else if (input[0] == 27 && input[1] == 91 && input[2] == 66)
+			command = ft_strcpy(command, down_history(&previous, history));
+		else if (input[0] == 27 && input[1] == 91 && input[2] == 65)
+			command = ft_strcpy(command, up_history(&previous, history));
+		else if (input[0] == 127)
+			command = delete_key(command, &a, index);
 		else
-		{
-			if (command[a] == 0 && index == 0)
-			{
-				command[a] = input[0];
-				ft_putchar(command[a]);
-			}
-			else
-			{
-				command = shift_right_string(command, (int)ft_strlen(command) - index, input[0]);
-				apply_termcap(DL);
-				apply_termcap(RC);
-				ft_putstr(PROMPT);
-				ft_putstr(command);
-				test = 0;
-				while (test < index)
-				{
-					apply_termcap(LE);
-					test++;
-				}
-			}
-			a++;
-			cursor_pos++;
-		}
+			command = add_char(command, input[0], index, &a);
 		ft_memset(input, 0, 3);
 	}
 }
 
-char		*shift_left_string(char *str, int index)
+char		*init_command(int *a, int *index, int *previous)
 {
+	char		*command;
+
+	apply_termcap(SC);
+	ft_putstr(PROMPT);
+	*a = 0;
+	*index = 0;
+	*previous = 0;
+	if (!(command = (char *)malloc(sizeof(char) * 1024)))
+		exit(EXIT_FAILURE);
+	ft_memset(command, 0, 1024);
+	return (command);
+}
+
+char		*add_char(char *str, char c, int index, int *a)
+{
+	int		test;
+
+	test = 0;
+	if (str[*a] == 0 && index == 0)
+	{
+		str[*a] = c;
+		ft_putchar(str[*a]);
+	}
+	else
+	{
+		str = shift_right_string(str, (int)ft_strlen(str) - index, c);
+		apply_termcap(DL);
+		apply_termcap(RC);
+		ft_putstr(PROMPT);
+		ft_putstr(str);
+		while (test < index)
+		{
+			apply_termcap(LE);
+			test++;
+		}
+	}
+	(*a)++;
+	return (str);
+}
+
+char		*delete_key(char *str, int *a, int cursor)
+{
+	int		test;
+	int		index;
+
+	index = ft_strlen(str) - 1 - cursor;
+	test = 0;
 	while (str[index + 1] && index + 1 > 0)
 	{
 		str[index] = str[index + 1];
 		index++;
 	}
 	str[index] = '\0';
+	if (*a > 0)
+		(*a)--;
+	apply_termcap(DL);
+	apply_termcap(RC);
+	ft_putstr(PROMPT);
+	ft_putstr(str);
+	while (test < cursor)
+	{
+		apply_termcap(LE);
+		test++;
+	}
 	return (str);
 }
 
