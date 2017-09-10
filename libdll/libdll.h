@@ -32,7 +32,6 @@ typedef struct			s_control
 typedef struct			s_lst
 {
 	char				*name;
-	char				**value;
 	int					type;
 	struct s_lst		*next;
 	struct s_lst		*prev;

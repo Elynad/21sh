@@ -18,7 +18,9 @@ SRC =	main.c \
 		parsing.c \
 		history.c \
 		cursor.c \
-		termcaps.c
+		termcaps.c \
+		splitter.c \
+		lexer.c
 
 OBJ = $(SRC:.c=.o)
 

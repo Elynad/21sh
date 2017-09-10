@@ -70,7 +70,8 @@ void		add_history(t_control *history, char *command, char **env)
 {
 	if (command && ft_strlen(command) > 0)
 		history = dll_add_new_elem_end(history, command);
-	ft_putstr("\nCOMMAND VALUE = ");
-	ft_debug(command);
-	parsing(env, history);
+//	ft_putstr("\nCOMMAND VALUE = ");
+//	ft_debug(command);
+	ft_putchar('\n');	// DEBUG TEST
+	splitter(env, history, command);
 }
