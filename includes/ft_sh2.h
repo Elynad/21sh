@@ -38,13 +38,6 @@ typedef struct 		s_glob
 
 t_glob				*glob;
 
-typedef struct		s_char
-{
-	char			c;
-	struct s_char	*next;
-	struct s_char	*prev;
-}					t_char;
-
 /*
 **		INIT
 */
@@ -59,7 +52,7 @@ void		init(void);
 
 
 /*
-**		PARSING
+**		PARSING & LINE EDITION
 */
 
 void		parsing(char **env, t_control *history);

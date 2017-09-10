@@ -9,13 +9,14 @@ TO DO
 =====
 
 - Free the new **char in the linked list in libdll
-- Implement history of commands with dll
+- Norm parsing func
+- Reset new project architecture
 
 ====
 BUGS
 ====
 
-- Delete func bullshit when strlen(command) == 1;
+- 
 
 ===========
 CRASH TESTS

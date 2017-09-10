@@ -68,7 +68,7 @@ void		parsing(char **env, t_control *history)
 			if (previous > 2)
 				previous--;
 			tmp = history->end;
-			int test3 = 2;
+			int 	test3 = 2;
 			while (test3 < previous && tmp != NULL && tmp->prev != NULL)
 			{
 				tmp = tmp->prev;
@@ -108,6 +108,8 @@ void		parsing(char **env, t_control *history)
 		else if (input[0] == 127)										// DELETE
 		{
 			command = shift_left_string(command, (ft_strlen(command) - 1 - index));
+			if (a > 0)
+				a--;
 			apply_termcap(DL);
 			apply_termcap(RC);
 			ft_putstr(PROMPT);
