@@ -131,8 +131,6 @@ char			**str_split(char *str, char sep, int mfree)
 
 	index = 0;
 	spaces = get_spaces(str, sep);
-	ft_debug("SPACES VALUE");
-	ft_putnbr(spaces);
 	if (!(split = (char **)malloc(sizeof(char *) * (spaces + 1))))
 		exit(EXIT_FAILURE);
 	size = spaces;

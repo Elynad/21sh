@@ -16,7 +16,7 @@ TO DO
 BUGS
 ====
 
-- When searching through history, can't modify the elem
+- When searching through history, can't modify the elem				// SOLVED
 
 ===========
 CRASH TESTS

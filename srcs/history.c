@@ -12,7 +12,7 @@
 
 #include "../includes/ft_sh2.h"
 
-char		*down_history(int *previous, t_control *history)
+char		*down_history(int *previous, t_control *history, int *a)
 {
 	t_lst		*tmp;
 	int			test;
@@ -33,13 +33,14 @@ char		*down_history(int *previous, t_control *history)
 		apply_termcap(RC);
 		ft_putstr(PROMPT);
 		ft_putstr(tmp->name);
+		*a = ft_strlen(tmp->name);
 		return (tmp->name);
 	}
 	else
 		return (NULL);
 }
 
-char		*up_history(int *previous, t_control *history)
+char		*up_history(int *previous, t_control *history, int *a)
 {
 	t_lst		*tmp;
 	int			test;
@@ -60,6 +61,7 @@ char		*up_history(int *previous, t_control *history)
 		apply_termcap(RC);
 		ft_putstr(PROMPT);
 		ft_putstr(tmp->name);
+		*a = ft_strlen(tmp->name);
 		return (tmp->name);
 	}
 	else

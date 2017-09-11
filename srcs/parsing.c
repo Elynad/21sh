@@ -30,9 +30,9 @@ void		parsing(char **env, t_control *history)
 			&& (input[2] == 68 || input[2] == 67))
 			move_cursor_sides(input[2], &index, a, (int)ft_strlen(command));
 		else if (input[0] == 27 && input[1] == 91 && input[2] == 66)
-			command = ft_strcpy(command, down_history(&previous, history));
+			command = ft_strcpy(command, down_history(&previous, history, &a));
 		else if (input[0] == 27 && input[1] == 91 && input[2] == 65)
-			command = ft_strcpy(command, up_history(&previous, history));
+			command = ft_strcpy(command, up_history(&previous, history, &a));
 		else if (input[0] == 127)
 			command = delete_key(command, &a, index);
 		else
