@@ -13,7 +13,7 @@
 #include "../includes/ft_sh2.h"
 
 /*
-**	The lexer func will set command into tokens
+**	The lexer func sets command into tokens
 */
 
 void		lexer(char **env, char *command)
@@ -25,8 +25,8 @@ void		lexer(char **env, char *command)
 	(void)env;
 	a = 0;
 	tokens = add_token(tokens, command, &a);
-	dll_print_list(tokens, '\n');
-	
+	dll_print_list(tokens, '\n');				// DEBUG
+
 }
 
 t_control		*set_redirection_token_1(t_control *tokens, char *str, int *a)

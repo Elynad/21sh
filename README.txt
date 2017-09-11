@@ -19,7 +19,7 @@ BUGS
 ====
 
 - When searching through history, can't modify the elem				// SOLVED
-- Segfault if history search in an empty history
+- Segfault if history search in an empty history					// SOLVED
 
 ===========
 CRASH TESTS

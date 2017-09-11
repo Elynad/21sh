@@ -19,6 +19,8 @@ char		*down_history(int *previous, t_control *history, int *a)
 
 	test = 2;
 	tmp = NULL;
+	if (history == NULL || history->length == 0)
+		return ("");
 	if (*previous > 2)
 		(*previous)--;
 	tmp = history->end;
@@ -47,6 +49,8 @@ char		*up_history(int *previous, t_control *history, int *a)
 
 	tmp = NULL;
 	test = 2;
+	if (history == NULL || history->length == 0)
+		return ("");
 	if (*previous <= history->length)
 		(*previous)++;
 	tmp = history->end;

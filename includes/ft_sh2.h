@@ -55,11 +55,13 @@ void		init(void);
 **		LEXER
 */
 
-void		lexer(char **env, char *command);
-t_control	*add_token(t_control *tokens, char *str, int *a);
+void			lexer(char **env, char *command);
+t_control		*add_token(t_control *tokens, char *str, int *a);
 t_control		*set_redirection_token_1(t_control *tokens, char *str, int *a);
 t_control		*set_redirection_token_2(t_control *tokens, char *str, int *a);
 t_control		*set_command_token(t_control *tokens, char *str, int *a);
+
+void			token_tree(t_control *tokens_list, char **env);
 
 /*
 **		PARSER & LINE EDITER
