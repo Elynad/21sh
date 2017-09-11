@@ -10,7 +10,7 @@ TO DO
 
 - Free the new **char in the linked list in libdll
 - Reset new project architecture
-- Splitter func : Just before the lexer, will split the *command by ';' chars, without splitting the ';' between single or double quotes.
+- Split ';' strings func needs to be normed
 
 ====
 BUGS

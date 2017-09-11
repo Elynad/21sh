@@ -72,10 +72,8 @@ char		*init_command(int *a, int *index, int *previous);
 char		*shift_right_string(char *str, int index, char c);
 
 void		splitter(char **env, t_control *history, char *command);
-char		**split_entry(char *str);
-int			get_size(char *str);
-char		*set_command(char *str, int *index);
-int			get_command_size(char *str, int *index);
+
+char		**str_split(char *str, char sep, int mfree);
 
 
 /*

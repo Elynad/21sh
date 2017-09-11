@@ -20,7 +20,8 @@ SRC =	main.c \
 		cursor.c \
 		termcaps.c \
 		splitter.c \
-		lexer.c
+		lexer.c \
+		str_split.c
 
 OBJ = $(SRC:.c=.o)
 
