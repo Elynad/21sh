@@ -21,7 +21,8 @@ SRC =	main.c \
 		termcaps.c \
 		splitter.c \
 		lexer.c \
-		str_split.c
+		str_split.c \
+		str_split_whitespaces.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -31,7 +32,7 @@ SRC_POS = $(addprefix $(SRC_PATH),$(SRC))
 
 INC = -I includes
 
-LIBFT = libft/libft.a libdll/libdll.a
+LIBFT = libft/libft.a libdll/libdll.a libbt/libbt.a
 
 CC = clang
 
@@ -48,16 +49,19 @@ $(NAME):	$(OBJ) $(LIBFT)
 $(LIBFT):
 			make -C ./libft/
 			make -C ./libdll/
+			make -C ./libbt/
 
 clean:
 			rm -rf $(OBJ)
 			make clean -C ./libft/
 			make clean -C ./libdll/
+			make clean -C ./libbt/
 
 fclean:		clean
 			rm -rf $(NAME)
 			make fclean -C ./libft/
 			make fclean -C ./libdll/
+			make fclean -C ./libbt/
 
 re:			fclean all
 

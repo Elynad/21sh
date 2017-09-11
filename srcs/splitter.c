@@ -20,9 +20,26 @@
 void		splitter(char **env, t_control *history, char *command)
 {
 	char	**split;
+	int		a;
 
-	split = str_split(command, ';', 0);	// 0 = DO NOT FREE COMMAND;
-	ft_print_tab(split, '\n');
+	a = 0;
+	split = str_split(command, ';', 1);
 
+	ft_print_tab(split, '\n');		// DEBUG
+	while (split[a])
+	{
+		lexer(env, split[a]);
+		a++;
+	}
+
+	a = 0;
+	// FREE SPLIT CREATE LEAKS - WTF ?
+/*	while (split[a])
+	{
+		free(split[a]);
+		split[a] = NULL;
+	}
+	free(split);
+	split = NULL;*/
 	parsing(env, history);
 }

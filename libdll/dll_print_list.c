@@ -23,6 +23,8 @@ void		dll_print_list(t_control *control, char sep)
 		tmp = control->begin;
 		while (tmp != NULL)
 		{
+			ft_putnbr(tmp->type);	// DEBUG
+			ft_putchar('\t');		// DEBUG
 			ft_putstr(tmp->name);
 			ft_putchar(sep);
 			tmp = tmp->next;

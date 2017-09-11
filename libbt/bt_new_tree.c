@@ -12,13 +12,13 @@
 
 #include "libbt.h"
 
-t_btree			*bt_new_tree(int value)
+t_btree			*bt_new_tree(char *str)
 {
 	t_btree			*tree;
 
 	if (!(tree = malloc(sizeof(t_btree))))
 		exit(EXIT_FAILURE);
-	tree->value = value;
+	tree->str = str;
 	tree->bt_left = NULL;
 	tree->bt_right = NULL;
 	tree->parent = NULL;

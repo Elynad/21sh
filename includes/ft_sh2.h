@@ -55,7 +55,11 @@ void		init(void);
 **		LEXER
 */
 
-
+void		lexer(char **env, char *command);
+t_control	*add_token(t_control *tokens, char *str, int *a);
+t_control		*set_redirection_token_1(t_control *tokens, char *str, int *a);
+t_control		*set_redirection_token_2(t_control *tokens, char *str, int *a);
+t_control		*set_command_token(t_control *tokens, char *str, int *a);
 
 /*
 **		PARSER & LINE EDITER
@@ -87,5 +91,11 @@ void		apply_termcap(int macro);
 */
 
 void		free_d_char(char **d_char);
+
+/*
+**		OTHER
+*/
+
+char		**str_split_whitespaces(char *str, int mfree);
 
 #endif

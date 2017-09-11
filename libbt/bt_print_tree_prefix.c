@@ -19,15 +19,18 @@ void		bt_print_tree_prefix(t_btree *tree)
 	if (tree->parent != NULL)
 	{
 		ft_putchar('(');
-		ft_putnbr(tree->parent->value);
+	//	ft_putnbr(tree->parent->value);
+		ft_putstr(tree->parent->str);
 		ft_putstr(") -> ");
-		ft_putnbr(tree->value);
+	//	ft_putnbr(tree->value);
+		ft_putstr(tree->str);
 		ft_putchar('\n');
 	}
 	else
 	{
 		ft_putchar('(');
-		ft_putnbr(tree->value);
+//		ft_putnbr(tree->value);
+		ft_putstr(tree->str);
 		ft_putstr(")\n");
 	}
 	if (tree->bt_left != NULL)

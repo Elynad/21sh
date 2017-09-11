@@ -18,15 +18,15 @@
 
 typedef struct			s_btree
 {
-	int					value;
+	char				*str;
 	struct s_btree		*bt_left;
 	struct s_btree		*bt_right;
 	struct s_btree		*parent;
 }						t_btree;
 
-t_btree					*bt_new_tree(int value);
+t_btree					*bt_new_tree(char *str);
 void					bt_clean_tree(t_btree *tree);
-t_btree					*bt_join_trees(t_btree *left, t_btree *right, int node);
+t_btree					*bt_join_trees(t_btree *left, t_btree *right, char *str);
 void					bt_print_tree_prefix(t_btree *tree);
 int						bt_count_tree_nodes(t_btree *tree);
 

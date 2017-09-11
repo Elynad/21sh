@@ -17,10 +17,7 @@
 # include "../libft/libft.h"
 
 # define COMMAND 1
-# define FLAG 2
-# define ARGUMENT 3
-# define REDIRECTION 4
-# define END 5
+# define REDIRECTION 2
 
 typedef struct			s_control
 {

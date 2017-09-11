@@ -12,11 +12,11 @@
 
 #include "libbt.h"
 
-t_btree			*bt_join_trees(t_btree *left, t_btree *right, int node)
+t_btree			*bt_join_trees(t_btree *left, t_btree *right, char *str)
 {
 	t_btree		*tree;
 
-	tree = bt_new_tree(node);
+	tree = bt_new_tree(str);
 	tree->bt_left = left;
 	tree->bt_right = right;
 	if (left != NULL)
