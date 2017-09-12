@@ -17,11 +17,11 @@ void		token_tree(t_control *tokens_list, char **env)
 	t_btree		*tree;
 
 	(void)env;
-	tokens_list = unset_all(tokens_list);
+	tree = NULL;
 	tree = create_root_tree(tokens_list);
-	ft_debug("CREATION DONE");
+//	while (1);
 	bt_print_tree_prefix(tree);
-	ft_debug("PRINTING DONE");
+	bt_clean_tree(tree);			// FREE TREE
 }
 
 t_btree		*create_root_tree(t_control *tokens_list)
@@ -29,30 +29,34 @@ t_btree		*create_root_tree(t_control *tokens_list)
 	int			type;
 	t_btree		*root;
 	t_lst		*tmp;
+	t_control	*left_list;
+	t_control	*right_list;
 
-	ft_debug("Begin, creating root tree, tokens_list value");
-	dll_print_list(tokens_list, '\t');
-	ft_putchar('\n');
+	left_list = NULL;
+	right_list = NULL;
 	tmp = tokens_list->begin;
 	type = get_type(tokens_list);
 	if (!(root = malloc(sizeof(t_btree))))
 		exit(EXIT_FAILURE);
 	ft_bzero(root, sizeof(t_btree));
-	root->parent = NULL;
-	root->bt_left = NULL;
-	root->bt_right = NULL;
 	while (tmp != NULL && tmp->type != type)
 		tmp = tmp->next;
 	if (tmp)
 	{
 		root->str = ft_strdup(tmp->name);
-	//	tmp->is_set = 1;
-		ft_debug("Create left root tree");
-		root->bt_left = create_tree(root, create_left_list(tmp));
-		ft_debug("Create right root tree");
-		root->bt_right = create_tree(root, create_right_list(tmp));
+		if (tokens_list->length > 1)
+		{
+			left_list = create_left_list(tmp);
+			root->bt_left = create_tree(root, left_list);
+			right_list = create_right_list(tmp);
+			root->bt_right = create_tree(root, right_list);
+			dll_clear_list(left_list);
+			dll_clear_list(right_list);
+		}
 	}
+	tmp = NULL;
 	dll_clear_list(tokens_list);
+//	while (1);
 	return (root);
 }
 
@@ -64,19 +68,12 @@ t_btree		*create_tree(t_btree *root, t_control *tokens_list)
 	t_btree		*tree;
 	t_lst		*tmp;
 
+	left_list = NULL;
+	right_list = NULL;
 	if (tokens_list->length < 1)
-	{
-		ft_debug("List is empty");
 		return (NULL);
-	}
-	ft_debug("Begin of CREATE_TREE, tokens_list value");
-	dll_print_list(tokens_list, '\t');
-	ft_putchar('\n');
 	tree = NULL;
 	type = get_type(tokens_list);
-	ft_putstr("Looking for type == ");
-	ft_putnbr(type);
-	ft_putchar('\n');
 	tmp = tokens_list->begin;
 	while (tmp && tmp->type != type)
 		tmp = tmp->next;
@@ -87,31 +84,22 @@ t_btree		*create_tree(t_btree *root, t_control *tokens_list)
 		ft_bzero(tree, sizeof(t_btree));
 		tree->parent = root;
 		tree->str = ft_strdup(tmp->name);
-	//	tmp->is_set = 1;
 		left_list = create_left_list(tmp);
 		if (left_list)
-		{
-			ft_debug("Going to create left tree");
-			tree->bt_left = create_tree(tree, create_left_list(tmp));
-		}
+			tree->bt_left = create_tree(tree, left_list);
 		else
-		{
 			tree->bt_left = NULL;
-			ft_debug("No left list, no left tree");
-		}
 		right_list = create_right_list(tmp);
 		if (right_list)
-		{
-			ft_debug("Going to create right tree");
-			tree->bt_right = create_tree(tree, create_right_list(tmp));
-		}
+			tree->bt_right = create_tree(tree, right_list);
 		else
-		{
 			tree->bt_right = NULL;
-			ft_debug("No right list, no right tree");
-		}
+		dll_clear_list(right_list);
+		dll_clear_list(left_list);
+
 	}
-	dll_clear_list(tokens_list);
+	else
+		dll_clear_list(tokens_list);
 	return (tree);
 }
 
@@ -139,7 +127,7 @@ int			check_disp(t_control *tokens_lists, int type)
 	tmp = tokens_lists->begin;
 	while (tmp != NULL)
 	{
-		if (tmp->type == type)// && tmp->is_set == 0)
+		if (tmp->type == type)
 			return (1);
 		tmp = tmp->next;
 	}
@@ -174,18 +162,4 @@ t_control	*create_left_list(t_lst *elem)
 		elem = elem->prev;
 	}
 	return (left_list);
-}
-
-t_control	*unset_all(t_control *tokens_list)
-{
-	t_lst	*tmp;
-
-	tmp = tokens_list->begin;
-	tmp = tmp->next;
-	while (tmp != NULL)
-	{
-//		tmp->is_set = 0;
-		tmp = tmp->next;
-	}
-	return (tokens_list);
 }

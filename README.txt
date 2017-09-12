@@ -14,8 +14,9 @@ TO DO
 - Free the new **char in the linked list in libdll
 - Reset new project architecture
 - Split ';' strings func needs to be normed
-- Insert tokens in a binary tree
 - Fix leaks on token_tree funcs
+- Segfault if the command is simple => Set condition to create
+	binary tree only if the command contains special chars
 
 ====
 BUGS

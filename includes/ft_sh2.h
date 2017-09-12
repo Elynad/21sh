@@ -66,7 +66,6 @@ t_control		*set_and_token(t_control *token, char *str, int *a);
 t_control		*set_command_token(t_control *tokens, char *str, int *a);
 
 void			token_tree(t_control *tokens_list, char **env);
-t_control		*unset_all(t_control *tokens_list);
 
 int				get_type(t_control *tokens_list);
 

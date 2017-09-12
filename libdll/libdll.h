@@ -33,7 +33,6 @@ typedef struct			s_lst
 {
 	char				*name;
 	int					type;
-	int					is_set;
 	struct s_lst		*next;
 	struct s_lst		*prev;
 }						t_lst;

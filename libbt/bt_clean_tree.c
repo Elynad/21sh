@@ -18,5 +18,8 @@ void			bt_clean_tree(t_btree *tree)
 		return ;
 	bt_clean_tree(tree->bt_left);
 	bt_clean_tree(tree->bt_right);
+	free(tree->str);
+	tree->str = NULL;
 	free(tree);
+	tree = NULL;
 }
