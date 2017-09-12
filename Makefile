@@ -22,7 +22,8 @@ SRC =	main.c \
 		splitter.c \
 		lexer.c \
 		str_split.c \
-		str_split_whitespaces.c
+		str_split_whitespaces.c \
+		token_tree.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -30,7 +31,7 @@ SRC_PATH = srcs/
 
 SRC_POS = $(addprefix $(SRC_PATH),$(SRC))
 
-INC = -I includes
+INC = -I includes -I libft -I libdll -I libbt
 
 LIBFT = libft/libft.a libdll/libdll.a libbt/libbt.a
 
@@ -44,7 +45,7 @@ $(NAME):	$(OBJ) $(LIBFT)
 			$(CC) -lncurses $(FLAGS) $(OBJ) -o $(NAME) $(LIBFT)
 
 %.o :		$(SRC_PATH)/%.c
-			$(CC) -o $@ -c $< $(FLAGS)
+			$(CC) -o $@ -c $< $(FLAGS) $(INC)
 
 $(LIBFT):
 			make -C ./libft/

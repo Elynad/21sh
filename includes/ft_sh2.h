@@ -14,9 +14,12 @@
 
 # define FT_SH2_H
 
-# include "../libft/libft.h"
-# include "../libdll/libdll.h"
-# include "../libbt/libbt.h"
+//# include "../libft/libft.h"
+//# include "../libdll/libdll.h"
+//# include "../libbt/libbt.h"
+# include "libft.h"
+# include "libdll.h"
+# include "libbt.h"
 # include <termios.h>
 # include <term.h>
 # include <curses.h>
@@ -59,9 +62,22 @@ void			lexer(char **env, char *command);
 t_control		*add_token(t_control *tokens, char *str, int *a);
 t_control		*set_redirection_token_1(t_control *tokens, char *str, int *a);
 t_control		*set_redirection_token_2(t_control *tokens, char *str, int *a);
+t_control		*set_and_token(t_control *token, char *str, int *a);
 t_control		*set_command_token(t_control *tokens, char *str, int *a);
 
 void			token_tree(t_control *tokens_list, char **env);
+t_control		*unset_all(t_control *tokens_list);
+
+int				get_type(t_control *tokens_list);
+
+t_control		*create_left_list(t_lst *elem);
+t_control		*create_right_list(t_lst *elem);
+
+int				check_disp(t_control *tokens_lists, int type);
+
+t_btree			*create_root_tree(t_control *tokens_list);
+t_btree			*create_tree(t_btree *root, t_control *tokens_list);
+
 
 /*
 **		PARSER & LINE EDITER

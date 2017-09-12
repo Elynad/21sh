@@ -16,8 +16,11 @@
 
 # include "../libft/libft.h"
 
+# define UNSET 0
 # define COMMAND 1
-# define REDIRECTION 2
+# define AND 2
+# define PIPE 3
+# define REDIRECTION 4
 
 typedef struct			s_control
 {
@@ -30,6 +33,7 @@ typedef struct			s_lst
 {
 	char				*name;
 	int					type;
+	int					is_set;
 	struct s_lst		*next;
 	struct s_lst		*prev;
 }						t_lst;

@@ -26,7 +26,8 @@ void		lexer(char **env, char *command)
 	a = 0;
 	tokens = add_token(tokens, command, &a);
 	dll_print_list(tokens, '\n');				// DEBUG
-
+	ft_debug(" ");
+	token_tree(tokens, env);
 }
 
 t_control		*set_redirection_token_1(t_control *tokens, char *str, int *a)
@@ -34,7 +35,7 @@ t_control		*set_redirection_token_1(t_control *tokens, char *str, int *a)
 	if (str[*a] && str[*a] == '|')
 	{
 		tokens = dll_add_new_elem_end(tokens, "|");
-		tokens->end->type = REDIRECTION;
+		tokens->end->type = PIPE;
 		(*a)++;
 	}
 	else if (str[*a] && str[*a] == '>' && str[*a + 1] && str[*a + 1] == '>')
@@ -69,6 +70,25 @@ t_control		*set_redirection_token_2(t_control *tokens, char *str, int *a)
 		(*a)++;
 	}
 	else
+		tokens = set_and_token(tokens, str, a);
+	return (tokens);
+}
+
+t_control		*set_and_token(t_control *tokens, char *str, int *a)
+{
+	if (str[*a] && str[*a] == '&' && str[*a + 1] && str[*a + 1] == '&')
+	{
+		tokens = dll_add_new_elem_end(tokens, "&&");
+		tokens->end->type = AND;
+		(*a) += 2;
+	}
+	else if (str[*a] && str[*a] == '&')
+	{
+		tokens = dll_add_new_elem_end(tokens, "&");
+		tokens->end->type = AND;
+		(*a)++;
+	}
+	else
 		tokens = set_command_token(tokens, str, a);
 	return (tokens);
 }
@@ -80,13 +100,13 @@ t_control		*set_command_token(t_control *tokens, char *str, int *a)
 
 	save = *a;
 	while (str[save] && str[save] != '<' && str[save] != '>'
-		&& str[save] != '|')
+		&& str[save] != '|' && str[save] != '&')
 		save++;
 	if (!(tmp = (char *)malloc(sizeof(char) * (save - *a + 1))))
 		exit(EXIT_FAILURE);
 	save = 0;
 	while (str[*a] && str[*a] != '<' && str[*a] != '>'
-		&& str[*a] != '|')
+		&& str[*a] != '|' && str[*a] != '&')
 	{
 		tmp[save] = str[*a];
 		save++;

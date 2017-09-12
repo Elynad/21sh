@@ -26,7 +26,7 @@ typedef struct			s_btree
 
 t_btree					*bt_new_tree(char *str);
 void					bt_clean_tree(t_btree *tree);
-t_btree					*bt_join_trees(t_btree *left, t_btree *right, char *str);
+t_btree					*bt_join_trees(t_btree *left, t_btree *right, t_btree *root);
 void					bt_print_tree_prefix(t_btree *tree);
 int						bt_count_tree_nodes(t_btree *tree);
 

@@ -12,16 +12,13 @@
 
 #include "libbt.h"
 
-t_btree			*bt_join_trees(t_btree *left, t_btree *right, char *str)
+t_btree			*bt_join_trees(t_btree *left, t_btree *right, t_btree *root)
 {
-	t_btree		*tree;
-
-	tree = bt_new_tree(str);
-	tree->bt_left = left;
-	tree->bt_right = right;
+	root->bt_left = left;
+	root->bt_right = right;
 	if (left != NULL)
-		left->parent = tree;
+		left->parent = root;
 	if (right != NULL)
-		right->parent = tree;
-	return (tree);
+		right->parent = root;
+	return (root);
 }
