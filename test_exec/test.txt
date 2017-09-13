@@ -1,0 +1,5 @@
+total 48
+-rwxr-xr-x  1 mameyer  2016_paris  8828 Sep 13 23:49 a.out
+-rw-r--r--  1 mameyer  2016_paris  1397 Sep 13 23:23 pipes.c
+-rw-r--r--  1 mameyer  2016_paris  1490 Sep 13 23:49 redirections.c
+-rw-r--r--  1 mameyer  2016_paris   259 Sep 13 23:47 test.txt
