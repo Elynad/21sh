@@ -47,7 +47,7 @@
        /* parent */
        close(pfd[0]); /* close the unused read side */
      // pfd[1] = open("test.txt", O_WRONLY);    // SET WRITE SIDE IN THE FILE TEST.TXT => ls > test.txt
-      pfd[1] = open("test.txt", O_RDWR);
+      pfd[1] = open("test.txt", O_APPEND | O_WRONLY); // => ls >> test.txt
        dup2(pfd[1], 1); /* connect the write side with stdout */
 
        close(pfd[1]); /* close the write side */
