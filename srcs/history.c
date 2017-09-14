@@ -12,6 +12,62 @@
 
 #include "../includes/ft_sh2.h"
 
+void		history_search(t_control *history, char *command)
+{
+	char	input[3];
+	int		index;
+	int		a;
+	char	*search;
+	t_lst	*tmp;
+
+	a = 0;
+	index = 0;
+	tmp = NULL;
+	if (!(search = (char *)malloc(sizeof(char) * 1024)))
+		exit(EXIT_FAILURE);
+	ft_memset(search, 0, 1024);
+	apply_termcap(DL);
+	apply_termcap(RC);
+	ft_putstr(PROMPT);
+	ft_putstr(command);
+	ft_putstr("\nbck-i-search: _");
+	while (read(0, input, 3))
+	{
+		if (history && history->length > 0)
+			tmp = history->end;
+		if (input[0] == 27 && input[1] == 91
+			&& (input[2] == 68 || input[2] == 67))
+			move_cursor_sides(input[2], &index, a, (int)ft_strlen(search));
+		else if (input[0] == 127)
+			search = delete_key(search, &a, index);
+		else
+			search = add_char(search, input[0], index, &a);
+		while (tmp != NULL)
+		{
+			if (ft_strstr(tmp->name, search) != NULL)
+			{
+				apply_termcap(DL);
+				apply_termcap(RC);
+				ft_putstr(PROMPT);
+				ft_putstr(tmp->name);
+				ft_putstr("\nbck-i-search: _");
+				ft_putstr(search);
+				break ;
+			}
+			tmp = tmp->prev;
+		}
+		if (!tmp)
+		{
+			apply_termcap(DL);
+			apply_termcap(RC);
+			ft_putstr(PROMPT);
+			ft_putstr("\nfailing bck-i-search: ");
+			ft_putstr(search);
+		}
+	}
+	(void)history;
+}
+
 char		*down_history(int *previous, t_control *history, int *a)
 {
 	t_lst		*tmp;

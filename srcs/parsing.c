@@ -33,6 +33,8 @@ void		parsing(char **env, t_control *history)
 			command = ft_strcpy(command, down_history(&previous, history, &a));
 		else if (input[0] == 27 && input[1] == 91 && input[2] == 65)
 			command = ft_strcpy(command, up_history(&previous, history, &a));
+		else if (input[0] == 18 && input[1] == 0 && input[2] == 0)
+			history_search(history, command);
 		else if (input[0] == 127)
 			command = delete_key(command, &a, index);
 		else
