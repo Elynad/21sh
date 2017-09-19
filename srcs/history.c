@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 07:41:18 by mameyer           #+#    #+#             */
-/*   Updated: 2017/09/10 07:41:20 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/09/16 20:02:33 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,27 @@ void		add_history(t_control *history, char *command, char **env)
 //	ft_putstr("\nCOMMAND VALUE = ");
 //	ft_debug(command);
 	ft_putchar('\n');	// DEBUG TEST
-	splitter(env, history, command);
+	/*
+	** TEST : GO IN HISTORY FUNC
+	*/
+	if (ft_strncmp(command, "history", 7))
+		history_builtin(command, history);
+	else
+		splitter(env, history, command);
+}
+
+void		history_builtin(char *command, t_control *history)
+{
+	(void)history;
+	if (ft_strcmp(command, "history") != 0)
+	{
+
+	}
+	if (ft_strstr(command, "-c"))
+	{
+		// CLEAR HISTORY
+	}
+	if (1)
+	{
+	}
 }

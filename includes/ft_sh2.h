@@ -88,6 +88,7 @@ char		*up_history(int *previous, t_control *history, int *a);
 char		*down_history(int *previous, t_control *history, int *a);
 void		add_history(t_control *history, char *command, char **env);
 void		history_search(t_control *history, char *command);
+void		history_builtin(char *command, t_control *history);
 
 char		*init_command(int *a, int *index, int *previous);
 char		*shift_right_string(char *str, int index, char c);
