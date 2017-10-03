@@ -1,1 +1,0 @@
-gcc -Wall -Wextra -Werror main.c ../libft/libft.a ../libdll/libdll.a -lncurses
